@@ -4,5 +4,4 @@ git hub starting
 git initialization
 git hub usage
 
-git file is updated an added new content
-successfull
+
