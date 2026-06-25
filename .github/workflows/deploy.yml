@@ -1,27 +1,23 @@
-name: CI/CD Deployment
+ name: CI/CD Deployment
 
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.8.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy to EC2
+      - name: Deploy
         run: |
           ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.HOST }} << 'EOF'
-            cd /var/www/html
-            git pull origin main
-            sudo systemctl restart nginx
+            cd /home/ec2-user/devops
+            git pull origin master
           EOF
